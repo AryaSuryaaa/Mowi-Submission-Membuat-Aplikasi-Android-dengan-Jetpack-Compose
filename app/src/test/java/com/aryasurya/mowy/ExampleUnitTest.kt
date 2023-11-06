@@ -1,4 +1,4 @@
-package com.aryasurya.myapplication
+package com.aryasurya.mowy
 
 import org.junit.Test
 

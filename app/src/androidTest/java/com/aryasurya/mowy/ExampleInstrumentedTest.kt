@@ -1,4 +1,4 @@
-package com.aryasurya.myapplication
+package com.aryasurya.mowy
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

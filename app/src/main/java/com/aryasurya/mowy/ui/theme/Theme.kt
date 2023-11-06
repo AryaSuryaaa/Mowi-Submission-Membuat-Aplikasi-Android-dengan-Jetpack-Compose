@@ -1,4 +1,4 @@
-package com.aryasurya.myapplication.ui.theme
+package com.aryasurya.mowy.ui.theme
 
 import android.app.Activity
 import android.os.Build
