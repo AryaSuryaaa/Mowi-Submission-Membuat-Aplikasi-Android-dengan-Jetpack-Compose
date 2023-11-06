@@ -8,20 +8,20 @@ import com.aryasurya.mowy.ui.components.MovieItemDisplay
 import com.aryasurya.mowy.ui.components.SectionText
 import com.aryasurya.mowy.ui.theme.MowyTheme
 
-@Composable
-fun HomeSection(
-    modifier: Modifier = Modifier
-) {
-    Column {
-        SectionText(text = "Now Showing")
-        MovieItemDisplay()
-    }
-}
-
-@Preview
-@Composable
-fun HomeSectionPrev() {
-    MowyTheme {
-        HomeSection()
-    }
-}
+//@Composable
+//fun HomeSection(
+//    modifier: Modifier = Modifier
+//) {
+//    Column {
+//        SectionText(text = "Now Showing")
+//        MovieItemDisplay()
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun HomeSectionPrev() {
+//    MowyTheme {
+//        HomeSection()
+//    }
+//}

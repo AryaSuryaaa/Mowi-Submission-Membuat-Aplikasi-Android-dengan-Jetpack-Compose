@@ -12,15 +12,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.aryasurya.mowy.R
 import com.aryasurya.mowy.ui.theme.MowyTheme
 
 @Composable
 fun MovieItemDisplay(
+    image: String,
     modifier: Modifier = Modifier
 ) {
-    Image(
-        painter = painterResource(id = R.drawable.sample_img) ,
+    AsyncImage(
+        model = image ,
         contentDescription = null ,
         contentScale = ContentScale.Crop ,
         modifier = modifier
@@ -32,10 +34,10 @@ fun MovieItemDisplay(
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun MovieItemDisplayPrev() {
-    MowyTheme {
-        MovieItemDisplay()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun MovieItemDisplayPrev() {
+//    MowyTheme {
+//        MovieItemDisplay()
+//    }
+//}
