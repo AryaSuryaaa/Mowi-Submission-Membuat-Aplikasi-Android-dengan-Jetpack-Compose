@@ -17,6 +17,10 @@ class MovieRepository(
         return apiService.getPopularMovie()
     }
 
+    suspend fun fetchUpcomingMovies(): MovieResponse {
+        return apiService.getTopRatedMovie()
+    }
+
     companion object {
         @Volatile
         private var instance: MovieRepository? = null
