@@ -1,8 +1,11 @@
 package com.aryasurya.mowy.remote
 
 import com.aryasurya.mowy.remote.data.ApiService
+import com.aryasurya.mowy.remote.response.DetailMovie
 import com.aryasurya.mowy.remote.response.MovieResponse
 import com.aryasurya.mowy.remote.response.ResultsItem
+import com.aryasurya.mowy.remote.response.VideoResultsItem
+import com.aryasurya.mowy.remote.response.VideoYoutube
 import com.aryasurya.mowy.ui.common.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +25,19 @@ class MovieRepository(
         return apiService.getTopRatedMovie()
     }
 
-    suspend fun detailMovie(movieId: String): MovieResponse {
+    suspend fun detailMovie(movieId: Int): DetailMovie {
         return apiService.getDetailMovie(movieId)
+    }
+
+    private suspend fun videoMovie(movieId: Int): VideoYoutube {
+        return apiService.getVideoMovie(movieId)
+    }
+
+    suspend fun getOfficialVideo(movieId: Int): VideoResultsItem? {
+        val videoYoutube = videoMovie(movieId)
+
+        // Menggunakan filter untuk mendapatkan data dengan type == "Trailer"
+        return videoYoutube.results.find { it.type == "Trailer" }
     }
 
     companion object {

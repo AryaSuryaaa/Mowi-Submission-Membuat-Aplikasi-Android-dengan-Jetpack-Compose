@@ -60,7 +60,7 @@ fun MowyApp(
                 Screen.DetailMovie.route ,
                 arguments = listOf(navArgument("movieId") { type = NavType.LongType })
             ) {
-                val id = it.arguments?.getLong("movieId")?.toInt() ?: -1L
+                val id = it.arguments?.getLong("movieId") ?: -1L
                 DetailScreen(
                     movieId = id,
                     navigateBack = {

@@ -20,52 +20,105 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aryasurya.mowy.R
+import com.aryasurya.mowy.di.Injection
 import com.aryasurya.mowy.remote.response.DetailMovie
-import com.aryasurya.mowy.ui.theme.MowyTheme
+import com.aryasurya.mowy.remote.response.VideoResultsItem
+import com.aryasurya.mowy.remote.response.VideoYoutube
+import com.aryasurya.mowy.ui.ViewModelFactory
+import com.aryasurya.mowy.ui.common.UiState
+import com.aryasurya.mowy.ui.components.YoutubePlayer
 
 @Composable
 fun DetailScreen(
-    movieId: Number ,
-    modifier: Modifier = Modifier ,
+    movieId: Long ,
+    viewModel: DetailViewModel = viewModel(
+        factory = ViewModelFactory(
+            Injection.provideRepository()
+        )
+    ),
     navigateBack: () -> Unit
 ) {
 
+    Column {
+        viewModel.videoTrailer.collectAsState(initial = UiState.Loading).value.let { result ->
+            when (result) {
+                is UiState.Loading -> {
+                    viewModel.fetchOfficialVideo(movieId.toInt())
+                }
+
+                is UiState.Success -> {
+                    TrailerYoutube(
+                        videoYoutube = result.data ,
+                        onBackClick = navigateBack
+                    )
+                }
+
+                is UiState.Error -> {}
+            }
+        }
+
+        viewModel.moviesNowPlayingState.collectAsState(initial = UiState.Loading).value.let { result ->
+            when (result) {
+                is UiState.Loading -> {
+                    viewModel.detailMovie(movieId.toInt())
+                }
+
+                is UiState.Success -> {
+                    val data = result.data
+                    DetailContent(
+                        movieDetail = data ,
+                    )
+                }
+
+                is UiState.Error -> {}
+            }
+        }
+    }
 }
 
 @Composable
-fun DetailContent(
+fun TrailerYoutube(
+    videoYoutube: VideoResultsItem,
+    onBackClick: () -> Unit ,
     modifier: Modifier = Modifier
 ) {
     Column {
         Icon(
-            imageVector = Icons.Default.ArrowBack,
+            imageVector = Icons.Default.ArrowBack ,
             contentDescription = null ,
             modifier = Modifier
                 .padding(16.dp)
-                .clickable { }
+                .clickable { onBackClick() }
         )
-        AsyncImage(
-            model = "",
-            contentDescription = null ,
-            modifier = modifier
-                .fillMaxWidth()
-                .height(240.dp)
+        YoutubePlayer(
+            youtubeVideoId = videoYoutube.key ,
+            lifecycleOwner = LocalLifecycleOwner.current
         )
-        Text(text = "Hallo" , modifier = modifier.padding(16.dp, 4.dp))
-        Text(text = "Ini adalah deskripsi", modifier = modifier.padding(16.dp, 4.dp))
+    }
+}
+
+@Composable
+fun DetailContent(
+    movieDetail: DetailMovie,
+    modifier: Modifier = Modifier
+) {
+    Column {
+        Text(text = movieDetail.title , modifier = modifier.padding(16.dp, 4.dp), fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text(text = movieDetail.overview, modifier = modifier.padding(16.dp, 4.dp))
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -211,10 +264,10 @@ fun DetailContent(
 }
 
 
-@Preview
-@Composable
-fun DetailScPrev() {
-    MowyTheme {
-        DetailContent()
-    }
-}
+//@Preview
+//@Composable
+//fun DetailScPrev() {
+//    MowyTheme {
+//        DetailContent()
+//    }
+//}

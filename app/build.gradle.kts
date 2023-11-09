@@ -82,4 +82,7 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.6.0")
     androidTestImplementation("androidx.navigation:navigation-testing:2.6.0")
+
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
+
 }

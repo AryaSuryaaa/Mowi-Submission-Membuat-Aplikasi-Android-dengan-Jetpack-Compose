@@ -1,6 +1,9 @@
 package com.aryasurya.mowy.remote.data
 
+import com.aryasurya.mowy.remote.response.DetailMovie
 import com.aryasurya.mowy.remote.response.MovieResponse
+import com.aryasurya.mowy.remote.response.VideoResultsItem
+import com.aryasurya.mowy.remote.response.VideoYoutube
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,13 +18,13 @@ interface ApiService {
     suspend fun getTopRatedMovie(
     ): MovieResponse
 
-    @GET("movie/top_rated")
-    suspend fun getNowPlayingMovie(
-        @Query("page") page: Int
-    ): MovieResponse
-
     @GET("movie/{movie_id}")
     suspend fun getDetailMovie(
-        @Path("movie_id") movieId: String
-    ): MovieResponse
+        @Path("movie_id") movieId: Int
+    ): DetailMovie
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getVideoMovie(
+        @Path("movie_id") movieId: Int
+    ): VideoYoutube
 }
