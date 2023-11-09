@@ -22,9 +22,13 @@ class HomeViewModel(private val movieRepository: MovieRepository) : ViewModel() 
     private val _moviesUpcomingState = MutableStateFlow<UiState<List<ResultsItem>>>(UiState.Loading)
     val moviesRatedState = _moviesUpcomingState.asStateFlow()
 
+    private val _moviesNowPlayingState = MutableStateFlow<UiState<List<ResultsItem>>>(UiState.Loading)
+    val moviesNowPlayingState = _moviesNowPlayingState.asStateFlow()
+
     init {
         fetchMovies()
         fetchUpcomingMovies()
+
     }
 
     private fun fetchMovies() {
@@ -45,6 +49,17 @@ class HomeViewModel(private val movieRepository: MovieRepository) : ViewModel() 
                 _moviesUpcomingState.value = UiState.Success(movieResponse.results)
             } catch (e: Exception) {
                 _moviesUpcomingState.value = UiState.Error("Failed to fetch movies")
+            }
+        }
+    }
+
+    private fun detailMovie(movieId: String) {
+        viewModelScope.launch {
+            try {
+                val movieResponse = movieRepository.detailMovie(movieId)
+                _moviesNowPlayingState.value = UiState.Success(movieResponse.results)
+            } catch (e: Exception) {
+                _moviesNowPlayingState.value = UiState.Error("Failed to fetch movies")
             }
         }
     }

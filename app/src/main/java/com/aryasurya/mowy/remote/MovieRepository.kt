@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
+import kotlin.random.Random
 
 class MovieRepository(
     private val apiService: ApiService ,
@@ -19,6 +20,10 @@ class MovieRepository(
 
     suspend fun fetchUpcomingMovies(): MovieResponse {
         return apiService.getTopRatedMovie()
+    }
+
+    suspend fun detailMovie(movieId: String): MovieResponse {
+        return apiService.getDetailMovie(movieId)
     }
 
     companion object {

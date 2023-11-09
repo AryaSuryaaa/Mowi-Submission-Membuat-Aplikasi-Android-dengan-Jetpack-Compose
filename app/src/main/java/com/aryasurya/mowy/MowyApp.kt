@@ -1,6 +1,5 @@
 package com.aryasurya.mowy
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -14,15 +13,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.aryasurya.mowy.ui.navigation.NavigationItem
 import com.aryasurya.mowy.ui.navigation.Screen
+import com.aryasurya.mowy.ui.screen.detail.DetailScreen
 import com.aryasurya.mowy.ui.screen.home.HomeScreen
 
 @Composable
@@ -35,7 +36,7 @@ fun MowyApp(
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != Screen.DetailReward.route) {
+            if (currentRoute != Screen.DetailMovie.route) {
                 BottomBar(navController = navController)
             }
         },
@@ -47,10 +48,26 @@ fun MowyApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    navigateToDetail = { movieId ->
+                        navController.navigate(Screen.DetailMovie.createRoute(movieId = movieId))
+                    }
+                )
             }
             composable(Screen.Favorite.route) {}
             composable(Screen.Profile.route) {}
+            composable(
+                Screen.DetailMovie.route ,
+                arguments = listOf(navArgument("movieId") { type = NavType.LongType })
+            ) {
+                val id = it.arguments?.getLong("movieId")?.toInt() ?: -1L
+                DetailScreen(
+                    movieId = id,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
+                )
+            }
         }
     }
 }

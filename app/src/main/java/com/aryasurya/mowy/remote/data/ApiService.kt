@@ -1,7 +1,9 @@
 package com.aryasurya.mowy.remote.data
 
 import com.aryasurya.mowy.remote.response.MovieResponse
+import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -16,5 +18,10 @@ interface ApiService {
     @GET("movie/top_rated")
     suspend fun getNowPlayingMovie(
         @Query("page") page: Int
+    ): MovieResponse
+
+    @GET("movie/{movie_id}")
+    suspend fun getDetailMovie(
+        @Path("movie_id") movieId: String
     ): MovieResponse
 }
