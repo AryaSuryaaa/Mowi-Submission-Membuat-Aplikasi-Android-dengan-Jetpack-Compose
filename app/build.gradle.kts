@@ -85,4 +85,7 @@ dependencies {
 
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 
+    // extend icon
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+
 }

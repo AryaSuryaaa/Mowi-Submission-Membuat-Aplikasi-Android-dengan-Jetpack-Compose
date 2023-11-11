@@ -28,7 +28,7 @@ fun MovieItemDisplay(
         modifier = modifier
             .width(180.dp)
             .height(240.dp)
-            .clip(RoundedCornerShape(16.dp))
+//            .clip(RoundedCornerShape(16.dp))
 
     )
 }

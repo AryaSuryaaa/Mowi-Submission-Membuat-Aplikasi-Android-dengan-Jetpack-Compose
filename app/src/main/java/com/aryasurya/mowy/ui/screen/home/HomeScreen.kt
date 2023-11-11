@@ -96,9 +96,8 @@ fun TopRatedMovieList(
 ) {
     LazyHorizontalGrid(
         rows = GridCells.Adaptive(160.dp),
-        contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(16.dp, 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier
             .testTag("RewardList")
             .height(260.dp)
@@ -119,9 +118,8 @@ fun PopularMovieList(
 ) {
     LazyHorizontalGrid(
         rows = GridCells.Adaptive(160.dp) ,
-        contentPadding = PaddingValues(16.dp) ,
-        horizontalArrangement = Arrangement.spacedBy(16.dp) ,
-        verticalArrangement = Arrangement.spacedBy(16.dp) ,
+        contentPadding = PaddingValues(16.dp, 8.dp) ,
+        horizontalArrangement = Arrangement.spacedBy(4.dp) ,
         modifier = modifier
             .testTag("RewardList")
             .height(260.dp)
