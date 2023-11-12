@@ -1,18 +1,12 @@
 package com.aryasurya.mowy.remote
 
+import androidx.compose.runtime.MutableState
 import com.aryasurya.mowy.remote.data.ApiService
 import com.aryasurya.mowy.remote.response.DetailMovie
 import com.aryasurya.mowy.remote.response.MovieResponse
-import com.aryasurya.mowy.remote.response.ResultsItem
+import com.aryasurya.mowy.remote.response.SearchMovieResponse
 import com.aryasurya.mowy.remote.response.VideoResultsItem
 import com.aryasurya.mowy.remote.response.VideoYoutube
-import com.aryasurya.mowy.ui.common.UiState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
-import kotlin.random.Random
 
 class MovieRepository(
     private val apiService: ApiService ,
@@ -39,6 +33,13 @@ class MovieRepository(
         // Menggunakan filter untuk mendapatkan data dengan type == "Trailer"
         return videoYoutube.results.find { it.type == "Trailer" }
     }
+
+    suspend fun searchMovie(keyword: String, adult: Boolean = false): SearchMovieResponse {
+        return apiService.searchMovie(keyword, adult)
+    }
+
+
+
 
     companion object {
         @Volatile

@@ -2,6 +2,7 @@ package com.aryasurya.mowy.remote.data
 
 import com.aryasurya.mowy.remote.response.DetailMovie
 import com.aryasurya.mowy.remote.response.MovieResponse
+import com.aryasurya.mowy.remote.response.SearchMovieResponse
 import com.aryasurya.mowy.remote.response.VideoResultsItem
 import com.aryasurya.mowy.remote.response.VideoYoutube
 import retrofit2.Call
@@ -27,4 +28,10 @@ interface ApiService {
     suspend fun getVideoMovie(
         @Path("movie_id") movieId: Int
     ): VideoYoutube
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("query") query: String,
+        @Query("include_adult") includeAdult: Boolean,
+    ): SearchMovieResponse
 }

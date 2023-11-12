@@ -7,6 +7,7 @@ import com.aryasurya.mowy.di.Injection
 import com.aryasurya.mowy.remote.MovieRepository
 import com.aryasurya.mowy.ui.screen.detail.DetailViewModel
 import com.aryasurya.mowy.ui.screen.home.HomeViewModel
+import com.aryasurya.mowy.ui.screen.search.SearchViewModel
 
 class ViewModelFactory(private val repository: MovieRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -18,6 +19,9 @@ class ViewModelFactory(private val repository: MovieRepository) :
         }
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+            return SearchViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

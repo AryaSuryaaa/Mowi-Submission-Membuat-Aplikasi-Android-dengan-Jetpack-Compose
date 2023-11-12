@@ -70,8 +70,6 @@ fun MowyApp(
                     }
                 )
             }
-            composable(Screen.Favorite.route) {}
-            composable(Screen.Profile.route) {}
             composable(
                 Screen.DetailMovie.route ,
                 arguments = listOf(navArgument("movieId") { type = NavType.LongType })
@@ -84,9 +82,31 @@ fun MowyApp(
                     },
                 )
             }
+            composable(Screen.Favorite.route) {}
+            composable(Screen.Profile.route) {}
             composable(Screen.Search.route) {
-                SearchScreen(navigateBack = { navController.navigateUp() })
+                SearchScreen(
+                    navigateToDetail = { movieId ->
+                        navController.navigate(Screen.DetailMovieSearch.createRoute(movieId = movieId))
+                    },
+                    navigateBack = { navController.navigateUp() },
+
+                    )
             }
+            composable(
+                Screen.DetailMovieSearch.route,
+                arguments = listOf(navArgument("movieId") { type = NavType.LongType })
+            ) {
+                val id = it.arguments?.getLong("movieId") ?: -1L
+                DetailScreen(
+                    movieId = id,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
+                )
+            }
+
+
         }
         if (currentRoute == Screen.Home.route) {
             MediumTopAppBar(
