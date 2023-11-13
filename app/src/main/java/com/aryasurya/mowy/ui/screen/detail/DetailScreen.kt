@@ -41,6 +41,7 @@ import com.aryasurya.mowy.remote.response.VideoYoutube
 import com.aryasurya.mowy.ui.ViewModelFactory
 import com.aryasurya.mowy.ui.common.UiState
 import com.aryasurya.mowy.ui.components.YoutubePlayer
+import com.aryasurya.mowy.ui.screen.playlist.WatchListViewModel
 
 @Composable
 fun DetailScreen(
@@ -114,6 +115,7 @@ fun TrailerYoutube(
 @Composable
 fun DetailContent(
     movieDetail: DetailMovie,
+    watchlistViewModel: WatchListViewModel,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -199,7 +201,15 @@ fun DetailContent(
                     "",
                     modifier = Modifier
                         .width(20.dp)
-                        .height(20.dp),
+                        .height(20.dp)
+                        .clickable {
+                            val isInWatchlist = watchlistViewModel.isMovieInWatchlist(movieDetail.id)
+                            if (isInWatchlist) {
+                                watchlistViewModel.deleteWatchlistMovie(movieDetail.toWatchlistMovie())
+                            } else {
+                                watchlistViewModel.insertWatchlistMovie(movieDetail.toWatchlistMovie())
+                            }
+                        },,
                     colorFilter = ColorFilter.tint(colorResource(R.color.white))
                 )
 

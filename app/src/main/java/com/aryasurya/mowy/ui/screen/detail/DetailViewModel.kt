@@ -6,11 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.aryasurya.mowy.remote.MovieRepository
 import com.aryasurya.mowy.remote.response.DetailMovie
 import com.aryasurya.mowy.remote.response.VideoResultsItem
-import com.aryasurya.mowy.remote.response.VideoYoutube
 import com.aryasurya.mowy.ui.common.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val movieRepository: MovieRepository): ViewModel() {
@@ -62,4 +60,6 @@ class DetailViewModel(private val movieRepository: MovieRepository): ViewModel()
             }
         }
     }
+
+
 }

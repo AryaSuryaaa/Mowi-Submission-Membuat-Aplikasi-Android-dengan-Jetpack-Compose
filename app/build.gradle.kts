@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -88,4 +90,13 @@ dependencies {
     // extend icon
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
 
+    //room
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.room:room-runtime:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
+
+    //coroutine support
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2") //viewModelScope
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2") //liveData
+    implementation("androidx.room:room-ktx:2.5.2")
 }

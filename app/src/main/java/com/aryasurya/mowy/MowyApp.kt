@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -152,8 +153,8 @@ private fun BottomBar(
                 screen = Screen.Home
             ) ,
             NavigationItem(
-                title = "Favorite" ,
-                icon = Icons.Default.ShoppingCart,
+                title = "Play List" ,
+                icon = Icons.Default.PlaylistPlay,
                 screen = Screen.Favorite
             ),
             NavigationItem(
